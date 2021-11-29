@@ -1,20 +1,20 @@
 import requests
-import json
 uri = ''
+
 def init(url):
     global uri
     uri = url
 
 def short(ticker):
-    try:
-        a = requests.get(f'{uri}/api/short?id={ticker}').json()
+    a = requests.get(f'{uri}/api/short?id={ticker}').json()
+    if 'error' not in a.keys():
         return a
-    except Exception as e:
-        return {'error': 'bad_id'}
+    else:
+        return a["error"]
 
 def long(ticker):
-    try:
-        a = requests.get(f'{uri}/api/long?id={ticker}').json()
+    a = requests.get(f'{uri}/api/long?id={ticker}').json()
+    if 'error' not in a.keys():
         return a
-    except Exception as e:
-        return {'error': 'bad_id'}
+    else:
+        return a["error"]
